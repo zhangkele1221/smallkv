@@ -17,7 +17,7 @@ namespace smallkv {
          *         +--------------+---------+
          */
         auto len = log.size();
-        auto checksum = static_cast<uint32_t>(absl::ComputeCrc32c(log));
+        auto checksum = static_cast<uint32_t>(absl::ComputeCrc32c(absl::string_view(log.data(), log.size())));
         // 小端存储：低位数据存在地址低位，比如0x1234中，34存在header[0]
         header[0] = checksum & 0xff;
         header[1] = (checksum >> 8) & 0xff;
